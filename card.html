@@ -57,7 +57,7 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.015'/%3E%3C/svg%3E"); /* 미세한 종이 질감 */
         }
 
-        /* 세로 화면: 명함을 가로로 회전 */
+        /* 세로 화면: 명함을 가로로 회전 (잘리지 않게 vw 기준) */
         @media (orientation: portrait) {
             html, body {
                 margin: 0;
@@ -82,43 +82,53 @@
             }
 
             .business-card {
-                width: 100vh;
-                height: 100vw;
+                width: 100vmax;
+                height: 100vmin;
                 max-width: none;
-                padding: 40px 50px;
+                padding: 30px 40px;
                 border-radius: 0;
                 box-shadow: none;
             }
 
             .name {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
 
             .title {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
 
             .description {
-                font-size: 0.85rem;
-                margin-top: 10px;
+                font-size: 0.75rem;
+                margin-top: 8px;
             }
 
             .company-name {
-                font-size: 0.95rem;
+                font-size: 0.85rem;
             }
 
             .card-bottom {
-                margin-top: 20px;
-                padding-top: 20px;
+                margin-top: 15px;
+                padding-top: 15px;
             }
 
             .contact-item {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
             }
 
             .btn {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
                 padding: 6px 12px;
+            }
+        }
+
+        /* 가로 화면: 일반 반응형 */
+        @media (orientation: landscape) and (max-width: 950px) {
+            .business-card {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 9 / 5;
+                padding: 30px;
             }
         }
 
@@ -288,5 +298,8 @@
         </div>
     </div>
 
+    <script>
+        try { screen.orientation.lock('landscape').catch(function(){}); } catch(e) {}
+    </script>
 </body>
 </html>
