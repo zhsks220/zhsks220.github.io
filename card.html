@@ -238,18 +238,9 @@
 
     <script>
         // 화면을 가로 모드로 강제 고정
-        async function lockLandscape() {
-            try {
-                await screen.orientation.lock('landscape');
-            } catch (e) {
-                // 지원 안 되는 브라우저 대비: 전체화면 후 재시도
-                try {
-                    await document.documentElement.requestFullscreen();
-                    await screen.orientation.lock('landscape');
-                } catch (e2) {}
-            }
-        }
-        lockLandscape();
+        try {
+            screen.orientation.lock('landscape').catch(function(){});
+        } catch(e) {}
     </script>
 </body>
 </html>
