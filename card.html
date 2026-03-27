@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORIJIN - 디지털 명함</title>
+    <!-- Pretendard Font -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <style>
+        :root {
+            --bg-color: #f7f8f9;
+            --card-bg: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #5f6368;
+            --accent-color: #0046eb; /* 심플하고 신뢰감 주는 블루 포인트 */
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card-container {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .business-card {
+            background: var(--card-bg);
+            border-radius: 4px; /* 실제 명함의 직각 모서리 느낌 살림, 아주 미세한 라운드 */
+            width: 900px; /* 명함 비율 (90mm x 50mm 기반 비율 확장) */
+            height: 500px;
+            max-width: 100%;
+            padding: 60px 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.05), 
+                0 20px 40px -5px rgba(0, 0, 0, 0.08),
+                inset 0 0 0 1px rgba(0,0,0,0.02); /* 입체감 및 종이 질감 느낌 부여 */
+            position: relative;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.015'/%3E%3C/svg%3E"); /* 미세한 종이 질감 */
+        }
+
+        /* 반응형: 모바일 화면에서는 세로형 또는 축소 */
+        @media (max-width: 950px) {
+            .business-card {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 9 / 5;
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .business-card {
+                aspect-ratio: auto;
+                min-height: 400px;
+            }
+            .card-bottom {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 30px;
+            }
+            .links {
+                text-align: left !important;
+            }
+        }
+
+        .company-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .company-name::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 16px;
+            background-color: var(--accent-color);
+        }
+
+        .main-info {
+            margin-top: auto;
+            margin-bottom: 20px;
+        }
+
+        .name-wrapper {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+        }
+
+        .name {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .title {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding-bottom: 8px;
+        }
+
+        .description {
+            font-size: 1rem;
+            color: #888;
+            max-width: 450px;
+            line-height: 1.6;
+            word-break: keep-all;
+            margin-top: 15px;
+            font-weight: 400;
+        }
+
+        .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 30px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .contact-item {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            width: 40px;
+            font-size: 0.85rem;
+        }
+
+        .links {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            background: transparent;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: var(--text-primary);
+            color: #fff;
+            border-color: var(--text-primary);
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        <!-- 실제 종이 명함 느낌의 UI -->
+        <div class="business-card">
+            
+            <div class="company-name">
+                MS COMPANY
+            </div>
+
+            <div class="main-info">
+                <div class="name-wrapper">
+                    <h1 class="name">박진형</h1>
+                    <span class="title">CEO / Full-Stack & AI Expert</span>
+                </div>
+                <!-- 프로필 철학/소개 -->
+                <p class="description">
+                    "고객이 원하는 걸 정확히 파악하는 것이 개발보다 중요합니다."<br>
+                    웹, 앱, 백엔드 가리지 않고 프로젝트에 맞는 기술을 유연하게 사용하여 최적의 결과물을 도출합니다.
+                </p>
+            </div>
+
+            <div class="card-bottom">
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-label">E.</span> msgamecompany@gmail.com
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">M.</span> 010-3994-4310
+                    </div>
+                </div>
+
+                <div class="links">
+                    <a href="https://kmong.com/@오리진입니다" target="_blank" class="btn btn-primary">크몽 프로필 바로가기</a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
