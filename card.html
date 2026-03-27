@@ -49,36 +49,76 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow:
-                0 4px 6px -1px rgba(0, 0, 0, 0.05),
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.05), 
                 0 20px 40px -5px rgba(0, 0, 0, 0.08),
                 inset 0 0 0 1px rgba(0,0,0,0.02); /* 입체감 및 종이 질감 느낌 부여 */
             position: relative;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.015'/%3E%3C/svg%3E"); /* 미세한 종이 질감 */
         }
 
-        /* 반응형: 모바일 화면에서는 세로형 또는 축소 */
-        @media (max-width: 950px) {
-            .business-card {
-                width: 100%;
-                height: auto;
-                aspect-ratio: 9 / 5;
-                padding: 30px;
+        /* 세로 화면: 명함을 가로로 회전 */
+        @media (orientation: portrait) {
+            html, body {
+                margin: 0;
+                padding: 0;
+                width: 100vw;
+                height: 100vh;
+                overflow: hidden;
             }
-        }
 
-        @media (max-width: 480px) {
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0;
+            }
+
+            .card-container {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(90deg);
+            }
+
             .business-card {
-                aspect-ratio: auto;
-                min-height: 400px;
+                width: 100vh;
+                height: 100vw;
+                max-width: none;
+                padding: 40px 50px;
+                border-radius: 0;
+                box-shadow: none;
             }
+
+            .name {
+                font-size: 2.5rem;
+            }
+
+            .title {
+                font-size: 1rem;
+            }
+
+            .description {
+                font-size: 0.85rem;
+                margin-top: 10px;
+            }
+
+            .company-name {
+                font-size: 0.95rem;
+            }
+
             .card-bottom {
-                flex-direction: column;
-                align-items: flex-start !important;
-                gap: 30px;
+                margin-top: 20px;
+                padding-top: 20px;
             }
-            .links {
-                text-align: left !important;
+
+            .contact-item {
+                font-size: 0.85rem;
+            }
+
+            .btn {
+                font-size: 0.85rem;
+                padding: 6px 12px;
             }
         }
 
@@ -211,7 +251,7 @@
     <div class="card-container">
         <!-- 실제 종이 명함 느낌의 UI -->
         <div class="business-card">
-
+            
             <div class="company-name">
                 MS COMPANY
             </div>
@@ -229,7 +269,7 @@
             </div>
 
             <div class="card-bottom">
-
+                
                 <div class="contact-info">
                     <div class="contact-item">
                         <span class="contact-label">E.</span> msgamecompany@gmail.com
