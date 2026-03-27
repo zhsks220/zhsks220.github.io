@@ -71,40 +71,45 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                padding: 0;
             }
 
             .card-container {
-                transform: rotate(90deg);
-                transform-origin: center center;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(90deg);
             }
 
             .business-card {
-                width: 95vh;
-                height: 53vw;
+                width: 100vh;
+                height: 100vw;
                 max-width: none;
-                padding: 25px 35px;
+                padding: 40px 50px;
+                border-radius: 0;
+                box-shadow: none;
             }
 
             .name {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
 
             .title {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
 
             .description {
-                font-size: 0.8rem;
-                margin-top: 8px;
+                font-size: 0.85rem;
+                margin-top: 10px;
             }
 
             .company-name {
-                font-size: 0.9rem;
+                font-size: 0.95rem;
             }
 
             .card-bottom {
-                margin-top: 15px;
-                padding-top: 15px;
+                margin-top: 20px;
+                padding-top: 20px;
             }
 
             .contact-item {
