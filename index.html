@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="오리진 게임즈 - 인디 모바일 게임 스튜디오">
+  <title>오리진 게임즈</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    *,*::before,*::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-0: #0b0d12; --bg-1: #131720; --bg-2: #1c2230;
+      --line: rgba(255,255,255,0.08);
+      --text-0: #f5f5f7; --text-1: #a1a8b8; --text-2: #6b7280;
+      --accent: #ffd166; --accent-2: #f59e0b;
+      --radius: 18px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: var(--bg-0); color: var(--text-0);
+      min-height: 100vh; overflow-x: hidden;
+      letter-spacing: -0.01em; line-height: 1.5;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(255,209,102,0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(99,102,241,0.08) 0%, transparent 40%);
+      pointer-events: none; z-index: 0;
+    }
+    .wrap { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; padding: 0 24px; }
+    header { padding: 96px 0 40px; text-align: center; }
+    .logo-mark {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 56px; height: 56px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: #1a1a2e; font-weight: 800; font-size: 28px;
+      margin-bottom: 20px;
+      box-shadow: 0 12px 40px rgba(255,209,102,0.25);
+    }
+    h1 {
+      font-size: clamp(2rem, 4.5vw, 2.8rem);
+      font-weight: 800; letter-spacing: -0.04em; margin-bottom: 8px;
+      background: linear-gradient(180deg, #fff 30%, #888 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .tagline { color: var(--text-1); font-size: 1rem; font-weight: 500; }
+    .section-label {
+      display: flex; align-items: center; gap: 12px;
+      margin: 56px 0 20px;
+      color: var(--text-2); font-size: 0.85rem;
+      font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .section-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+    .games {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px; margin-bottom: 48px;
+    }
+    .card {
+      position: relative;
+      background: var(--bg-1); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 24px;
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+      text-decoration: none; color: inherit;
+      display: flex; flex-direction: column; min-height: 220px;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,0.15);
+      background: var(--bg-2);
+    }
+    .card::before {
+      content: ""; position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: var(--card-accent, var(--accent));
+      opacity: 0.8;
+    }
+    .card-icon {
+      width: 44px; height: 44px; border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      background: var(--card-accent-soft, rgba(255,209,102,0.15));
+      margin-bottom: 16px;
+    }
+    .card h2 { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .card p { color: var(--text-1); font-size: 0.9rem; flex: 1; margin-bottom: 16px; }
+    .card-foot {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 12px; border-top: 1px solid var(--line);
+    }
+    .card-tag {
+      font-size: 0.75rem; color: var(--text-2);
+      font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .card-cta {
+      font-size: 0.85rem; font-weight: 600;
+      color: var(--card-accent, var(--accent));
+      display: inline-flex; align-items: center; gap: 4px;
+      transition: gap 0.2s ease;
+    }
+    .card:hover .card-cta { gap: 8px; }
+    .card.game-drawrun { --card-accent: #fb923c; --card-accent-soft: rgba(251,146,60,0.12); }
+    .card.game-chess   { --card-accent: #a78bfa; --card-accent-soft: rgba(167,139,250,0.12); }
+    .card.game-alkkagi { --card-accent: #fbbf24; --card-accent-soft: rgba(251,191,36,0.12); }
+    footer {
+      padding: 48px 0 32px; border-top: 1px solid var(--line);
+      margin-top: 24px; text-align: center;
+      color: var(--text-2); font-size: 0.8rem;
+    }
+    footer a { color: var(--text-1); text-decoration: none; transition: color 0.2s ease; }
+    footer a:hover { color: var(--text-0); }
+    .foot-links { display: flex; gap: 20px; justify-content: center; margin-bottom: 16px; }
+    @media (max-width: 600px) {
+      header { padding: 64px 0 24px; }
+      .games { grid-template-columns: 1fr; }
+      .card { min-height: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo-mark">O</div>
+      <h1>오리진 게임즈</h1>
+      <p class="tagline">캐주얼하고 재미있는 모바일 게임을 만듭니다</p>
+    </header>
+    <div class="section-label">출시 게임</div>
+    <div class="games">
+      <a href="https://play.google.com/store/apps/details?id=com.alkkagi.game" class="card game-alkkagi" target="_blank" rel="noopener">
+        <div class="card-icon">⚫</div>
+        <h2>예측 알까기</h2>
+        <p>동시 행동 선택 기반 심리전 알까기. 상대의 수를 읽고 한 발 앞서는 쪽이 판을 가져가는 실시간 1:1 온라인 대전.</p>
+        <div class="card-foot">
+          <span class="card-tag">Online · Strategy</span>
+          <span class="card-cta">Google Play →</span>
+        </div>
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.chessgrow.game" class="card game-chess" target="_blank" rel="noopener">
+        <div class="card-icon">♟️</div>
+        <h2>체스 키우기</h2>
+        <p>체스말을 강화하고 성장시키는 방치형 클리커. 한 수 한 수 쌓아 올린 보드 위의 왕국.</p>
+        <div class="card-foot">
+          <span class="card-tag">Idle · Clicker</span>
+          <span class="card-cta">Google Play →</span>
+        </div>
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.drawrun.game" class="card game-drawrun" target="_blank" rel="noopener">
+        <div class="card-icon">🏃</div>
+        <h2>그려라 달려라</h2>
+        <p>손가락으로 길을 그려 캐릭터를 달리게 하는 3D 로그라이크 러너. 짧은 호흡, 강한 액션.</p>
+        <div class="card-foot">
+          <span class="card-tag">Action · Runner</span>
+          <span class="card-cta">Google Play →</span>
+        </div>
+      </a>
+    </div>
+    <footer>
+      <div class="foot-links">
+        <a href="mailto:zhsks220@gmail.com">Contact</a>
+        <a href="/privacy.html">Privacy</a>
+      </div>
+      <div>© 2026 Origin Games. All rights reserved.</div>
+    </footer>
+  </div>
+</body>
+</html>
